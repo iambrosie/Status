@@ -18,6 +18,7 @@ dynamic analysis tools
 ======================
 * fire up [logcat] (http://forum.xda-developers.com/showthread.php?t=1726238) while launching the app
 * use a debugger, e.g. [andbug] (https://github.com/swdunlop/AndBug)
+* [drozer] (https://www.mwrinfosecurity.com/products/drozer/) by MWR Labs
 
 abbreviations
 =============
@@ -36,6 +37,7 @@ abbreviations
 * OBB: Opaque Binary Blobs
 * AIDL: Android Interface Definition Language
 * JDWP: Java Debug Wire Protocol
+* SIP: Session Initiation Protocol
 
 major application components
 ============================
