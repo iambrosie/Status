@@ -10,6 +10,23 @@ static analysis tools
 * grep
 * [androguard] (https://code.google.com/p/androguard/): __the android reverse engineering tool__
 
+abbreviations
+=============
+* OHA: [Open Handset Alliance] (url: http://www.openhandsetalliance.com/oha_members.html)
+* AOSP: Android Open Source Project
+* [Explanation of Code Names, Tags, and Build Numbers] (http://source.android.com/source/build-numbers.html)
+* [Release adoption] (http://developer.android.com/about/dashboards/)
+* OEM: Original Equipment Manufacturer
+* CDD: [Compatibility Definition Document] (http://source.android.com/compatibility/)
+* CTS: Android Compatibility Test Suite
+* OTA: Over The Air
+* AIDs: Android IDs
+* JNI: Java Native Interface
+* ADB: Android Debugging Bridge
+* ASEC: Android Secure Container
+* OBB: Opaque Binary Blobs
+* AIDL: Android Interface Definition Language
+
 major application components
 ============================
 * *AndroidManifest.xml*: contains a smorgasbord of information about the application, including the following: Unique package name, Activities, Services, BroadcastReceivers, Instrumentation definitions, Permission definitions, Information on external libraries packaged with and used by the application, Additional supporting directives, such as shared UID information, preferred installation location and UI info (such as the launcher icon for the application).
