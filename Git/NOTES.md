@@ -1,4 +1,7 @@
-PRO Git Status:
+PRO Git Status
 ===============
-
 http://git-scm.com/book/en/Git-Basics-Recording-Changes-to-the-Repository
+
+Additional resources:
+---------------------
+- GitHub Guides: https://guides.github.com/
