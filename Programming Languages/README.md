@@ -9,3 +9,4 @@ Online Resources
 Programming Languages
 =====================
 * [Rust] (http://www.rust-lang.org/)
+* [Julia] (http://julialang.org/)
