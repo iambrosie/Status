@@ -3,8 +3,8 @@ Computability
 From a mathematical point of view, *a program defines a function*. The *output* of a program is computed as a function of the program inputs and the state of the machine before the program starts.
 
 In computation, there are two different reasons why an expression might not have a value:
-1. *Error termination* (e.g. Division by zero)
-2. *Nontermination* (i.e. There is a specific computation to perform, but the computation may not terminate and therefore may not yield a value.)
+  - *Error termination* (e.g. Division by zero)
+  - *Nontermination* (i.e. There is a specific computation to perform, but the computation may not terminate and therefore may not yield a value.)
 
 A *partial function* is a function that is defined on some arguments and undefined on others. 
 
