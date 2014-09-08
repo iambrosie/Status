@@ -3,12 +3,10 @@ Computability
 From a mathematical point of view, *a program defines a function*. The *output* of a program is computed as a function of the program inputs and the state of the machine before the program starts.
 
 In computation, there are two different reasons why an expression might not have a value:
-  - *Error termination* (e.g. Division by zero)
-  - *Nontermination* (i.e. There is a specific computation to perform, but the computation may not terminate and therefore may not yield a value.)
+  - *Error termination* (e.g. Division by zero).
+  - *Nontermination* (i.e. There is a specific computation to perform, but the computation may not terminate and therefore may not yield a value).
 
-A *partial function* is a function that is defined on some arguments and undefined on others. 
-
-Programs actually define partial functions.
+A *partial function* is a function that is defined on some arguments and undefined on others. Programs actually define partial functions.
 
 The class of functions on the natural numbers that are computable in principle (and not computable in practice, because some computable functions may take an extremely long time to finish) is often called the class of *partial recursive functions*.
 
@@ -22,8 +20,8 @@ Some specific functions are *not computable*, e.g. *the halting problem*:
 
 The undecidability of the halting problem implies that some properties of programs cannot be determined in advance, e.g. it is not possible for a compiler to determine whether certain loops will halt.
 
-Summary: When the value of a function or the value of an expression is undefined because a basic operation such as division by zero does not make sense,a compiler or interpreter can cause the program to halt and report the error. However, the undecidability of the halting problem implies that there is no way to detect and report an error whenever a program is not going to halt.
+**Summary**: When the value of a function or the value of an expression is undefined because a basic operation such as division by zero does not make sense, a compiler or interpreter can cause the program to halt and report the error. However, the undecidability of the halting problem implies that there is no way to detect and report an error whenever a program is not going to halt.
 
 For more computability and complexity theory:
-  - Introduction to Automata Theory, Languages, and Computation by Hopcroft, Motwani, and Ullman
-  - Introduction to the Theory of Computation by Sipser
+  - [Introduction to Automata Theory, Languages, and Computation] (http://www.amazon.com/Introduction-Automata-Languages-Computation-Edition/dp/0321455363) by Hopcroft, Motwani, and Ullman
+  - [Introduction to the Theory of Computation] (http://www.amazon.com/Introduction-Theory-Computation-Michael-Sipser/dp/113318779X/ref=pd_bxgy_b_text_y) by Sipser
