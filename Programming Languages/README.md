@@ -1,6 +1,6 @@
 Concepts
 ========
-* [Concepts in Programming Languages] (http://theory.stanford.edu/~jcm/books.html) by John C. Mitchell. Currently on pg. 20 [Notes] (PL_CONCEPTS.md).
+* [Concepts in Programming Languages] (http://theory.stanford.edu/~jcm/books.html) by John C. Mitchell. Currently on pg. 20 -- See [NOTES] (PL_CONCEPTS.md).
 
 Online Resources
 =================
