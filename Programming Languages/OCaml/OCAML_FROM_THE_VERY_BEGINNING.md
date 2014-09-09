@@ -70,7 +70,7 @@ utop # cube 200;;
 
 cube is the name of the function and x is the name of its argument.
 
-The cube function, as replied by OCaml is int -> int. That is, cube is a function which takes an integer as its argument and evaluates to an integer.
+The type of the cube function, as replied by OCaml, is int -> int. That is, cube is a function which takes an integer as its argument and evaluates to an integer.
 
 Of course, there can be more than one argument to a function, e.g.:
 
