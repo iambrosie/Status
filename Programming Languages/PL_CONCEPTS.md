@@ -25,3 +25,9 @@ The undecidability of the halting problem implies that some properties of progra
 For more computability and complexity theory:
   - [Introduction to Automata Theory, Languages, and Computation] (http://www.amazon.com/Introduction-Automata-Languages-Computation-Edition/dp/0321455363) by Hopcroft, Motwani, and Ullman
   - [Introduction to the Theory of Computation] (http://www.amazon.com/Introduction-Theory-Computation-Michael-Sipser/dp/113318779X/ref=pd_bxgy_b_text_y) by Sipser
+
+Lisp
+====
+Lisp is an acrynim for the *LISt Processor*, as lists comprise the main data structure in Lisp.
+
+[Recursive functions of symbolic expressions and their computation by machine] (http://www-formal.stanford.edu/jmc/recursive.pdf) by John McCarthy

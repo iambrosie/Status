@@ -1,6 +1,6 @@
 Concepts
 ========
-* Concepts in Programming Languages by John C. Mitchell. Currently, PART 1, Chapter 2 - Computability (pg. 10)
+* [Concepts in Programming Languages] (http://theory.stanford.edu/~jcm/books.html) by John C. Mitchell. Currently on pg. 20 [Notes] (PL_CONCEPTS.md).
 
 Online Resources
 =================
