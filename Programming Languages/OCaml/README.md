@@ -15,14 +15,16 @@ Installation instructions (Ubuntu 14.04.1 LTS)
 
 Opening the interpreter
 =======================
-    ```
-    $ ocaml
-        OCaml version 4.01.0
-    #
-    ```
+
+```
+$ ocaml
+    OCaml version 4.01.0
+#
+```
 
 Exiting the interpreter
 =======================
-    ```
-    # exit 0;;
-    ```
+
+```
+# exit 0;;
+```
