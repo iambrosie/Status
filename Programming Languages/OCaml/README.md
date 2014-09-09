@@ -22,7 +22,7 @@ Installation instructions (Ubuntu 14.04.1 LTS)
   - https://github.com/OCamlPro/ocp-indent - code formatting
 * Alternative command line interpreter
   - https://github.com/diml/utop - a universal toplevel for OCaml -->
- - [x] See [Real World OCaml Installation Instructions] (https://github.com/realworldocaml/book/wiki/Installation-Instructions).
+ - [x][Real World OCaml Installation Instructions] (https://github.com/realworldocaml/book/wiki/Installation-Instructions).
 
 
 Opening the interpreter
@@ -37,7 +37,7 @@ Exiting the interpreter
 =======================
 
 ```
-# #quit;;
+utop # #quit;;
 ```
 
-or Ctrl+d.
+or use Ctrl+d.
