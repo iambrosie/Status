@@ -2,7 +2,7 @@ Resources
 =========
 Books:
 * [OCaml from the Very Beginning] (http://ocaml-book.com/) by John Whitington -- See [NOTES] (OCAML_FROM_THE_VERY_BEGINNING.md).
-* [Real World OCaml] (https://realworldocaml.org/) by Yaron Minsky, Anil Madhavapeddy and Jason Hickey -- See [NOTES] (REAL_WORLD_OCAML.md)
+* [Real World OCaml] (https://realworldocaml.org/) by Yaron Minsky, Anil Madhavapeddy and Jason Hickey -- See [NOTES] (REAL_WORLD_OCAML.md).
 
 Online Resources:
 * [OCaml Labs] (http://www.cl.cam.ac.uk/projects/ocamllabs/index.html) at the University of Cambridge
@@ -22,19 +22,11 @@ Installation instructions (Ubuntu 14.04.1 LTS)
   - https://github.com/OCamlPro/ocp-indent - code formatting
 * Alternative command line interpreter
   - https://github.com/diml/utop - a universal toplevel for OCaml -->
-See [Real World OCaml Installation Instructions] (https://github.com/realworldocaml/book/wiki/Installation-Instructions).
+[x] See [Real World OCaml Installation Instructions] (https://github.com/realworldocaml/book/wiki/Installation-Instructions).
 
 
 Opening the interpreter
 =======================
-
-```
-$ ocaml
-    OCaml version 4.01.0
-#
-```
-
-or, if using utop
 
 ```
 $ utop
@@ -43,12 +35,6 @@ utop #
 
 Exiting the interpreter
 =======================
-
-```
-# exit 0;;
-```
-
-or
 
 ```
 # #quit;;
