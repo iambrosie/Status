@@ -30,4 +30,5 @@ Lisp
 ====
 Lisp is an acrynim for the *LISt Processor*, as lists comprise the main data structure in Lisp.
 
-[Recursive functions of symbolic expressions and their computation by machine] (http://www-formal.stanford.edu/jmc/recursive.pdf) by John McCarthy
+[Recursive functions of symbolic expressions and their computation by machine] (http://www-formal.stanford.edu/jmc/recursive.pdf) by John McCarthy [PDF]
+
