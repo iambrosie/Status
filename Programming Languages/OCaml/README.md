@@ -12,6 +12,8 @@ Installation instructions (Ubuntu 14.04.1 LTS)
   - https://github.com/def-lkb/merlin - auto completion
   - https://github.com/jpalardy/vim-slime - repl integration
   - https://github.com/OCamlPro/ocp-indent - code formatting
+* Alternative command line interpreter
+  - https://github.com/diml/utop - a universal toplevel for OCaml
 
 Opening the interpreter
 =======================
@@ -22,9 +24,24 @@ $ ocaml
 #
 ```
 
+or, if using utop
+
+```
+$ utop
+utop #
+```
+
 Exiting the interpreter
 =======================
 
 ```
 # exit 0;;
 ```
+
+or
+
+```
+# #quit;;
+```
+
+or Ctrl+d.
