@@ -9,8 +9,8 @@ Online Resources:
 * [Mirage OS] (http://openmirage.org/)
 
 Installation instructions (Ubuntu 14.04.1 LTS)
-=======================================================
-* OPAM && OCAML
+==============================================
+<!-- * OPAM && OCAML
   - apt-get install ocaml ocaml-native-compilers camlp4-extra opam
 * VIM Plugins
   - https://github.com/scrooloose/syntastic - syntax checking
@@ -18,7 +18,9 @@ Installation instructions (Ubuntu 14.04.1 LTS)
   - https://github.com/jpalardy/vim-slime - repl integration
   - https://github.com/OCamlPro/ocp-indent - code formatting
 * Alternative command line interpreter
-  - https://github.com/diml/utop - a universal toplevel for OCaml
+  - https://github.com/diml/utop - a universal toplevel for OCaml -->
+See [Real World OCaml Installation Instructions] (https://github.com/realworldocaml/book/wiki/Installation-Instructions).
+
 
 Opening the interpreter
 =======================
