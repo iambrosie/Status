@@ -1,9 +1,9 @@
 Resources
 =========
 Books:
-* [OCaml from the Very Beginning] (http://ocaml-book.com/) by John Whitington [NOTES] (OCAML_FROM_THE_VERY_BEGINNING.md)
+* [OCaml from the Very Beginning] (http://ocaml-book.com/) by John Whitington -- See [NOTES] (OCAML_FROM_THE_VERY_BEGINNING.md).
 
-Installation instructions (Ubuntu 14.04.1 LTS (trusty))
+Installation instructions (Ubuntu 14.04.1 LTS)
 =======================================================
 * OPAM && OCAML
   - apt-get install ocaml ocaml-native-compilers camlp4-extra opam
@@ -15,7 +15,7 @@ Installation instructions (Ubuntu 14.04.1 LTS (trusty))
 
 Opening the interpreter
 =======================
-    iambrozie@kdev:~/Programming/OCaml/TestML$ ocaml
+    $ ocaml
         OCaml version 4.01.0
     #
 
