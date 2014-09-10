@@ -67,16 +67,24 @@ android attack surfaces
 Remote attack surfaces (the name comes from the fact that the attacker need not be physically located near her victim).
   * On a live device, the /proc/net directory can be particularly enlightening. More specifically, the ptype entry in that directory provides a list of the protocol types that are supported along with their corresponding receive functions.
 
-  ```
-  root@crespo:/ # cat /proc/net/ptype
-  cat /proc/net/ptype
-  Type Device      Function
-  0800          ip_rcv+0x0/0x33c                // IPV4
-  00f5          phonet_rcv+0x0/0x4f0            // PhoNet
-  0806          arp_rcv+0x0/0x144               // ARP
-  890d wlan0    packet_rcv+0x0/0x3b8            
-  86dd          ipv6_rcv+0x0/0x404              // IPV6
-  888e wlan0    packet_rcv+0x0/0x3b8
-  ```
+```
+root@crespo:/ # cat /proc/net/ptype
+cat /proc/net/ptype
+Type Device      Function
+0800          ip_rcv+0x0/0x33c                // IPV4
+00f5          phonet_rcv+0x0/0x4f0            // PhoNet
+0806          arp_rcv+0x0/0x144               // ARP
+890d wlan0    packet_rcv+0x0/0x3b8            
+86dd          ipv6_rcv+0x0/0x404              // IPV6
+888e wlan0    packet_rcv+0x0/0x3b8
+```
 
-  
+  * Enumerating exposed network services can be done in two ways: by using a port scanner such as Nmap or by list the listening ports of a test device using shell access:
+
+```
+root@crespo:/ # netstat -an | grep LISTEN
+netstat -an | grep LISTEN
+ tcp       0      0 127.0.0.1:5037         0.0.0.0:*              LISTEN
+```
+
+
