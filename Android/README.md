@@ -40,6 +40,11 @@ abbreviations
 * SIP: Session Initiation Protocol
 * CVSS: Common Vulnerability Scoring System
 * CAPEC: MITRE’s Common Attack Pattern Enumeration and Classification
+* WAP: Wireless Application Protocol
+* USSD: Unstructured Supplementary Service Data
+* GSM: Global System for Mobile communication
+* PUK: Personal Unblocking Key
+* ADT: Android Development Tools
 
 major application components
 ============================
@@ -79,7 +84,7 @@ Type Device      Function
 888e wlan0    packet_rcv+0x0/0x3b8
 ```
 
-  * Enumerating exposed network services can be done in two ways: by using a port scanner such as Nmap or by list the listening ports of a test device using shell access:
+  * Enumerating exposed network services can be done in two ways: by using a port scanner such as Nmap or by listing the listening ports of a test device using shell access:
 
 ```
 root@crespo:/ # netstat -an | grep LISTEN
@@ -87,4 +92,7 @@ netstat -an | grep LISTEN
  tcp       0      0 127.0.0.1:5037         0.0.0.0:*              LISTEN
 ```
 
+  * Mobile devices expose an additional remote attack surface through cellular communications (SMS and MMS). MMS messages can contain rich multimedia content. Other protocols are built on top of SMS (e.g. WAP). WAP supports push messaging and other protocols. One type of request implemented as a WAP Push message is the Service Loading (SL) request. This request allows the subscriber to cause the handset to request a URL, sometimes without any user interaction.
 
+  * Browser attack surface: up until Android 4.1, devices shipped with only one browser: the Android
+  Browser (based on WebKit). With the release of the 2012 Nexus 7 and the Nexus 4, Google started shipping Chrome for Android (based on Chromium) as the default browser. In current versions of vanilla Android, Chrome is the only browser presented to the user. However, the traditional Android browser engine is still present and is used by apps discussed further in the “Web-Powered Apps” section later in this chapter. In Android 4.4, Google switched from using a pure-WebKit-supplied engine (libwebcore.so) to using an engine based on Chromium (libwebview-chromium.so). The primary difference between Chrome for Android and the two other engines is that the Chrome for Android receives updates via Google Play. The WebKit- and Chromium-based engines, which are exposed to apps via the Android Framework, are baked into the firmware and cannot be updated without a firmware upgrade. This drawback leaves these two engines exposed to publicly disclosed vulnerabilities, sometimes for a lengthy period of time. This is the “half-day vulnerability” risk.
