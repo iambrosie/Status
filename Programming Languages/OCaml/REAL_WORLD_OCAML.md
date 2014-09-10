@@ -54,7 +54,33 @@ utop # sum_if_test even 3 4;;
 - : int = 4
 ```
 
-- Even though we used = in two different ways: once as the part of the let binding that separates the thing  being defined from its definition; and once as an equality test, when comparing x mod 2 to 0. These are very different operations despite the fact that they share some syntax.
+- Even though we used = in two different ways (in the even function): once as the part of the let binding that separates the thing  being defined from its definition; and once as an equality test, when comparing x mod 2 to 0. These are very different operations despite the fact that they share some syntax.
 
 # Type Inference
 
+- OCaml determines the type of an expression using a technique called *type inference*, by which the type of an expression is inferred from the available type information about the components of that expression.
+- You can make it easier to understand the types of a given expression by adding explicit type annotations:
+
+```
+utop # let sum_if_test (test : int -> bool) (first : int) (second : int) : int =
+         (if test first then first else 0) +
+           (if test second then second else 0);;
+val sum_if_test : (int -> bool) -> int -> int -> int = <fun> 
+```
+
+- These annotations don’t change the behavior of an OCaml program, but they can serve as useful documentation, as well as catch unintended type changes. They can also be helpful in figuring out why a given piece of code fails to compile.
+- The final annotation indicates the type of the return value (for the sum_if_test function).
+
+# Infering Generic Types
+
+```
+utop # let first_if_true test x y =
+         if test x then x else y;;
+val first_if_true : ('a -> bool) -> 'a -> 'a -> 'a = <fun>
+```
+
+- So what’s the type of first_if_true ?
+  - Since there are no obvious clues such as arithmetic operators or literals to tell you what the type of x and y are, that makes it seem like one could use first_if_true on values of any type.
+  - By looking at the type returned by the toplevel, we can see that rather than choose a single concrete type, OCaml has introduced a type variable, 'a, to express that the type is generic.
+  - test is a one-argument function whose return value is bool and whose argument could be of any type 'a. But, whatever type 'a is, it has to be the same as the type of the other two arguments, x and y, and of the return value of first_if_true.
+- This kind of genericity is called *parametric polymorphism* because it works by parameterizing the type in question with a type variable.
