@@ -87,3 +87,32 @@ utop # let rec factorial a =
            a * factorial (a - 1);;
 val factorial : int -> int = <fun> 
 ```
+
+Pattern Matching
+================
+
+```
+utop # let rec factorial a =
+         match a with
+           1 -> 1
+         | _ -> a * factorial (a - 1);;
+utop # factorial 4;;
+- : int = 24
+```
+
+This can be read as: if a matches the pattern 1, return 1; if a matches _ (_ matches everything), return a * factorial (a - 1).
+
+We can also combine patterns:
+
+```
+utop # let is_vowel (a : char) : bool =
+         match a with
+            'a' | 'e' | 'i' | 'o' | 'u' -> true
+          |  _  -> false;;
+val is_vowel : char -> bool = <fun>
+```
+
+There is a special pattern *x .. z* to denote continous ranges, for example 'a' .. 'z' will match all lowercase letters.
+
+Making Lists
+============

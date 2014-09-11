@@ -107,3 +107,182 @@ utop # first_if_true big_number 10 20;;
 ## Type Errors Versus Exceptions
 
 - The distinction between *type errors* and *exceptions* is that type errors will stop you whether or not the offending code is ever actually executed, whereas code that triggers exceptions only fails when it’s called, and then, only when it’s called with an input that triggers the exception.
+
+## Tuples
+
+- A tuple is an ordered collection of values that can each be of a different type.
+
+```
+utop # let a_tuple = (3, "four", 5.);;
+val a_tuple : int * string * float = (3, "four", 5.)
+```
+
+- You can extract the components of a tuple using pattern matching, as shown below (here, the (x, y) is the pattern):
+
+```
+utop # let (x, y, z) = a_tuple;;
+val x : int = 3                                                                     val y : string = "four"                                                             val z : float = 5.
+```
+
+- Pattern matching can also show up in function arguments. If we represent a point on the plane as a pair of floats, we can use the following function to compute their distance:
+
+```
+utop # let distance (x1, y1) (x2, y2) =
+         sqrt((x1 -. x2) ** 2. +. (y1 -. y2) ** 2. );;
+val distance : float * float -> float * float -> float = <fun>
+```
+
+## Lists
+
+- Where tuples let you combine a fixed number of items, potentially of different types, *lists let you hold any number of items of the same type*.
+
+```
+utop # let alist = ["string1"; "string2"; "string3"];;
+val alist : string list = ["string1"; "string2"; "string3"]
+```
+
+- OCaml uses semicolons to separate list elements in lists rather than commas. Commas, instead, are used for separating elements in a tuple.
+
+- In addition to constructing lists using brackets, we can use the operator :: for adding elements to the front of a list (this creates a new and extended list and does not change the list we started with):
+
+```
+utop # "string-1" :: "string0" :: alist;;
+- : string list = ["string-1"; "string0"; "string1"; "string2"; "string3"]
+```
+
+- The bracket notation for lists is really just syntactic sugar for ::. Thus, the following declarations are all equivalent. Note that [] is used to represent the empty list and that :: is right-associative:
+
+```
+utop # [1; 2; 3];;
+- : int list = [1; 2; 3]
+utop # 1 :: (2 :: (3 :: []));;
+- : int list = [1; 2; 3]
+utop # 1 :: 2 :: 3 :: [];;
+- : int list = [1; 2; 3]
+```
+
+- There’s also a list concatenation operator, @, which can concatenate two lists (however, unlike  ::, this is not a constant-time operation. Concatenating two lists takes time proportional to the length of the first list):
+
+```
+utop # [1; 2; 3] @ [4; 5; 6];;
+- : int list = [1; 2; 3; 4; 5; 6]
+```
+
+- The elements of a list can be accessed through pattern matching. List patterns are based on the two list constructors, [] and ::
+
+```
+utop # let my_string alist =
+         match alist with
+           | first :: the_rest -> first
+           | [] -> "whatever" (* the default*)
+       ;;
+
+utop # my_string ["la"; "ala"; "alal"];;
+- : string = "la"
+
+utop # my_string [];;
+- : string = "whatever"
+```
+
+- The first pattern, first :: the_rest, covers the case where alist has at least one
+element, since every list except for the empty list can be written down with one or
+more :: ’s. The second pattern, [], matches only the empty list. These cases are exhaustive, since every list is either empty or has at least one element, a fact that is verified by the compiler.
+
+- Recursive list functions:
+
+```
+utop # let rec sum l = 
+         match l with
+           | [] -> 0                  (* the base case, l is an empty list *)
+           | hd :: tl -> hd + sum tl  (* the inductive case, where l is a non-empty list *)
+       ;;
+val sum : int list -> int = <fun>
+
+utop # sum [1; 2; 3];;
+- : int = 6
+```
+
+## Option
+
+- An option is used to express that a value might or might not be present. For example:
+
+```
+utop # let divide x y =
+         match y with
+           | 0 -> None
+           | _ -> Some (x / y)
+       ;;
+val divide : int -> int -> int option = <fun>
+
+utop # divide 3 0;;
+- : int option = None
+
+utop # divide 3 2;;
+- : int option = Some 1
+```
+
+- Some and None are constructors that let you build optional values, just as :: and [] let you build lists. You can think of an option as a specialized list that can only have zero or one elements.
+
+- To examine the contents of an option, we use pattern matching, as we did with tuples and lists.
+
+```
+utop # let log_entry maybe_time message =
+         let time =
+           match maybe_time with
+             | Some x -> x
+             | None -> Time.now ()                    (* Core’s Time module *)
+         in
+           Time.to_sec_string time ^ " -- " ^ message (* ^ is the string concatenation operator *)
+       ;;
+val log_entry : Time.t option -> string -> string = <fun>
+
+utop # log_entry None "bla";;
+- : string = "2014-09-11 16:14:29 -- bla"
+
+utop # log_entry (Some Time.epoch)  "bla";;
+- : string = "1970-01-01 02:00:00 -- bla"
+```
+
+- Options are important because they are the standard way in OCaml to encode a value
+that might not be there; there’s no such thing as a NullPointerException in OCaml (this is in contrast with most other languages, including Java and C#, where most if not all data types are nullable, meaning that, whatever their type is, any given value also contains the possibility of being a null value. In such languages, null is lurking everywhere).
+
+## Records and Variants
+
+- OCaml also allows us to define new data types. Here’s a toy example of a data type representing a point in two-dimensional space:
+
+```
+utop # type point2d = { x : float; y : float };;
+type point2d = { x : float; y : float; }
+
+utop # let p = { x = 3.; y = -4. };;
+val p : point2d = {x = 3.; y = -4.}
+```
+
+- point2d is a *record* type, which you can think of as a tuple where the individual fields are named, rather than being defined positionally.
+
+- We can get access to the contents of these types using pattern matching:
+
+```
+utop # let magnitude { x = x_pos ; y = y_pos } =
+         sqrt (x_pos ** 2. +. y_pos ** 2.);;
+val magnitude : point2d -> float = <fun>
+```
+
+- This can be written more tersely using what’s called *field punning* (when the
+name of the field and the name of the variable it is bound to coincide, we don’t have to write them both down):
+
+```
+utop # let magnitude { x; y } = sqrt (x ** 2. +. y ** 2.);;
+val magnitude : point2d -> float = <fun>
+```
+
+- Alternatively, we can use dot notation for accessing record fields:
+
+```
+utop # let distance v1 v2 =
+         magnitude { x = v1.x -. v2.x; y = v1.y -. v2.y }
+       ;;
+val distance : point2d -> point2d -> float = <fun>
+```
+
+## Imperative Programming
