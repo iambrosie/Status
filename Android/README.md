@@ -3,48 +3,75 @@ books
 * [android's hacker handbook] (http://eu.wiley.com/WileyCDA/WileyTitle/productCd-111860864X.html)
   * [authors reddit AMA] (http://www.reddit.com/r/netsec/comments/27zdxc/android_hackers_handbook_ama)
 
-additional online resources
-===========================
+additional resources
+====================
 * [vogella android development tutorials] (http://www.vogella.com/tutorials/android.html)
+* [xda developers android forum] (http://forum.xda-developers.com/)
+* attacks:
+  * https://jon.oberheide.org/blog/2011/05/28/when-angry-birds-attack-android-edition/
+  * https://jon.oberheide.org/blog/2011/03/07/how-i-almost-won-pwn2own-via-xss/
 
-static analysis tools
-=====================
-* dexdump (from the android SDK): disassembles classes.dex
-* [apktool] (https://code.google.com/p/android-apktool): decode APK's contents
-* grep
-* [androguard] (https://code.google.com/p/androguard/): __the android reverse engineering tool__ provides support for static analysis, disassembly and decompilation
+tools
+=====
+* static analysis
+  * dexdump (from the android SDK): disassembles classes.dex
+  * [apktool] (https://code.google.com/p/android-apktool): decode APK's contents
+  * grep
+  * [androguard] (https://code.google.com/p/androguard/): __the android reverse engineering tool__ provides support for static analysis, disassembly and decompilation
 
-dynamic analysis tools
-======================
-* fire up [logcat] (http://forum.xda-developers.com/showthread.php?t=1726238) while launching the app
-* use a debugger, e.g. [andbug] (https://github.com/swdunlop/AndBug)
-* [drozer] (https://www.mwrinfosecurity.com/products/drozer/) by MWR Labs
+* dynamic analysis
+  * fire up [logcat] (http://forum.xda-developers.com/showthread.php?t=1726238) while launching the app
+  * use a debugger, e.g. [andbug] (https://github.com/swdunlop/AndBug)
+  * [drozer] (https://www.mwrinfosecurity.com/products/drozer/) by MWR Labs
+
+* static and dynamic analysis
+  * [andrubis] (https://anubis.iseclab.org/)
 
 abbreviations
 =============
-* OHA: [Open Handset Alliance] (url: http://www.openhandsetalliance.com/oha_members.html)
-* AOSP: Android Open Source Project
 * [Explanation of Code Names, Tags, and Build Numbers] (http://source.android.com/source/build-numbers.html)
 * [Release adoption] (http://developer.android.com/about/dashboards/)
-* OEM: Original Equipment Manufacturer
-* CDD: [Compatibility Definition Document] (http://source.android.com/compatibility/)
-* CTS: Android Compatibility Test Suite
-* OTA: Over The Air
-* AIDs: Android IDs
-* JNI: Java Native Interface
 * ADB: Android Debugging Bridge
-* ASEC: Android Secure Container
-* OBB: Opaque Binary Blobs
-* AIDL: Android Interface Definition Language
-* JDWP: Java Debug Wire Protocol
-* SIP: Session Initiation Protocol
-* CVSS: Common Vulnerability Scoring System
-* CAPEC: MITRE’s Common Attack Pattern Enumeration and Classification
-* WAP: Wireless Application Protocol
-* USSD: Unstructured Supplementary Service Data
-* GSM: Global System for Mobile communication
-* PUK: Personal Unblocking Key
 * ADT: Android Development Tools
+* AIDL: Android Interface Definition Language
+* AIDs: Android IDs
+* AOSP: Android Open Source Project
+* ASEC: Android Secure Container
+* AVRCP: Audio/Video Remote Control Profile
+* CAPEC: MITRE’s Common Attack Pattern Enumeration and Classification
+* CDD: [Compatibility Definition Document] (http://source.android.com/compatibility/)
+* CDMA: Code Division Multiple Access
+* CTS: Android Compatibility Test Suite
+* CVSS: Common Vulnerability Scoring System
+* DUN: Dial-up Networking Profile
+* FTP: File Transfer Profile
+* GPS: Global Positioning System
+* GSM: Global System for Mobile communication
+* HFP: Hands-Free Profile
+* HID: Human Interface Device Profile
+* HSP: Headset Profile
+* JDWP: Java Debug Wire Protocol
+* JNI: Java Native Interface
+* L2CAP: Logical Link Control and Adaptation Protocol
+* LTE: Long Term Evolution
+* NDEF: NFC Data Exchange Format
+* NFC: Near Field Communication
+* OBB: Opaque Binary Blobs
+* OEM: Original Equipment Manufacturer
+* OHA: [Open Handset Alliance] (url: http://www.openhandsetalliance.com/oha_members.html)
+* Osmocom: Open Source Mobile Communications
+* OTA: Over The Air
+* PUK: Personal Unblocking Key
+* QR: Quick Response Codes
+* RFCOMM: Radio Frequency Communications
+* RFID: Radio Frequency Identification
+* RIL: Radio Interface Layer
+* SIP: Session Initiation Protocol
+* SOC: System-on-Chip
+* SSO: Google’s Single Sign On system
+* USRP: Universal Software Radio Peripheral
+* USSD: Unstructured Supplementary Service Data
+* WAP: Wireless Application Protocol
 
 major application components
 ============================
@@ -69,7 +96,7 @@ can be classified based on several criteria, including authentication, accessibi
 
 android attack surfaces
 =======================
-Remote attack surfaces (the name comes from the fact that the attacker need not be physically located near her victim).
+* Remote attack surfaces (the name comes from the fact that the attacker need not be physically located near her victim).
   * On a live device, the /proc/net directory can be particularly enlightening. More specifically, the ptype entry in that directory provides a list of the protocol types that are supported along with their corresponding receive functions.
 
 ```
@@ -96,3 +123,56 @@ netstat -an | grep LISTEN
 
   * Browser attack surface: up until Android 4.1, devices shipped with only one browser: the Android
   Browser (based on WebKit). With the release of the 2012 Nexus 7 and the Nexus 4, Google started shipping Chrome for Android (based on Chromium) as the default browser. In current versions of vanilla Android, Chrome is the only browser presented to the user. However, the traditional Android browser engine is still present and is used by apps discussed further in the “Web-Powered Apps” section later in this chapter. In Android 4.4, Google switched from using a pure-WebKit-supplied engine (libwebcore.so) to using an engine based on Chromium (libwebview-chromium.so). The primary difference between Chrome for Android and the two other engines is that the Chrome for Android receives updates via Google Play. The WebKit- and Chromium-based engines, which are exposed to apps via the Android Framework, are baked into the firmware and cannot be updated without a firmware upgrade. This drawback leaves these two engines exposed to publicly disclosed vulnerabilities, sometimes for a lengthy period of time. This is the “half-day vulnerability” risk.
+
+android malware
+===============
+* Android.Troj.mdk - early 2013, infected up to 1 million Chinese Android devices
+* Rootstrap Android botnet - infected more than 100,000 Android devices in China
+* #malwaremustdie:
+  * *Bouncer* - Google's QEMU based Android emulator designed to execute apps in order to determine whether they exhibit malicious behavior
+              - Attacks on Bouncer: Charlie Miller and Jon Oberheide, Nicholas Percoco ("Adventures in Bouncerland")
+
+android wireless communications
+===============================
+* Almost all devices support Wi-Fi and Bluetooth. Many of those also support Global Positioning System (GPS). Devices able to make cellular telephone calls support one or more of the standard cell technologies, such as Global System for Mobile communications (GSM) and Code Division Multiple Access (CDMA). Newer Android devices also support Near Field Communication (NFC).
+
+* *GPS* (often referred to as location data in Android)
+  * It works based on signals from satellites that orbit the planet. The GPS receiver chip receives these signals, amplifies them, and determines its location based on the result.
+  * Though GPS is a one-way communications mechanism, location data is exposed to Android applications through the Android Framework (android.location API) and Google Play Services (Location Services API).
+  * The hardware and software that implements GPS varies from one device to the next. Some devices have a dedicated chip that provides GPS support while others have GPS support integrated into the System-on-Chip (SoC).
+
+* *Baseband* (provides the ability to communicate with mobile networks)
+  * At the lowest level, this functionality is provided by a cellular modem. This component, often called the *baseband processor*, might be a separate chip or might be part of the SoC.
+  * The software that runs on this chip is referred to as the *baseband firmware* and is one of the software components that comprise the Android telephony stack.
+  * An attack against the baseband is a remote attack. However, an attacker must be within a certain proximity to a victim. In typical deployments, the cell modem can be several miles away from the cell tower (an attacker only needs to be close enough to the victim to appear to be the strongest signal).
+  * After the victim associates with the attacker’s tower, the attacker can MitM the victim’s traffic or send attack traffic as they desire. This type of attack is called a Rogue Base Station attack.
+  * Communicating with the baseband is only possible using sophisticated radio hardware like the Universal Software Radio Peripheral (USRP) from Ettus Research or BladeRF from Nuand. However, the availability of small, portable base stations like Femtocells and Picopops could make this task easier.
+  * In Android, the Radio Interface Layer (RIL) communicates with the baseband and exposes cellular functionality to rest of the device.
+
+* *Bluetooth* (originally designed as a wireless alternative to serial communications with relatively low range and power consumption)
+  * Most Bluetooth communications are limited to around 9.75 m (32 feet), but the use of antennae and more powerful transmitters can expand the range up to 99.9 m (328 feet).
+  * Bluetooth actually includes more than 30 profiles, each of which describes a particular capability of a Bluetooth device (e.g. most Bluetooth headsets use the Hands-Free Profile (HFP) and/or Headset Profile (HSP).
+  * These profiles give the connected device control over the device’s speaker, microphone and more. Other commonly used profiles include File Transfer Profile (FTP), Dial-up Networking Profile (DUN), Human Interface Device (HID) Profile, and Audio/Video Remote Control Profile (AVRCP).
+  * Much of the functionality of the various Bluetooth profiles requires going through the *pairing* process (usually the process involves entering a numeric code on both devices to confirm that they are indeed talking to each other but some devices have hard-coded codes and therefore are easier to attack).
+  * After a pairing is created, it’s possible to hijack the session and abuse it. Possible attacks include Bluejacking, Bluesnarfing and Bluebugging.
+  * Android used the Bluez user-space Bluetooth stack until Android 4.2 when Google switched to Bluedroid.
+  * More information about the Bluetooth subsystem in Android is available [here] (https://source.android.com/devices/bluetooth.html).
+
+* *Wi-Fi* (primarily used to connect to LANs but it can also be used to connect directly to other computer systems using Ad-Hoc or Wi-Fi Direct features)
+  * The maximum range of a typical Wi-Fi network is about 36.5 m (120 feet), but can easily be extended through the use of repeaters or directional antennae.
+  * The Wi-Fi stack on Android is much like the Bluetooth stack. In fact, some devices include a single chip that implements both technologies. Like Bluetooth, the source code for the Wi-Fi stack is open source.
+  * In user-space, wpa_supplicant implements authentication protocols and the Android operating system manages memorized connections.
+
+* *NFC* (wireless communications technology that builds upon RFID)
+  * The range is typically limited to less than 20 cm (8 inches).
+  * Typical use cases for NFC on Android devices: 
+    * Tags (prominently displayed in public places as part of interactive advertising posters) in the form of stickers
+    * Two users touch their Android devices together to *beam* data, such as a photo.
+    * For contactless payments
+  * Kernel drivers (libpn544_fs.so) speak to the NFC hardware. Then, the driver passes the data to the NFC Service (com.android.nfc composed out of libnfc_jni.so, libnfc.so and libnfc_ndef.so) within the Android Framework. In turn, the NFC Service delivers the NFC tag data to Android apps that have registered to be the recipient of NFC messages.
+  * The most popular message format for NFC is NDEF. These can contain any data, but are typically used to transmit text, phone numbers, contact information, URLs, and images. Parsing these types of messages often results in performing actions such as pairing Bluetooth devices, launching the web browser, dialer, YouTube, or Maps applications, and more. And in some cases these operations are performed without any user interaction.
+  * Succesful past attacks on NFC:
+    * Charlie Miller - used NFC to automatically set up connections using other wireless technologies such as Bluetooth and Wi-Fi Direct.
+    * Georg Wicherski and Joshua J. Drake - used NFC to launch a successful browser attack at BlackHat USA in 2012.
+    * MWR Labs - exploited a file format parsing vulnerability in the Polaris Office document suite at the 2012 Mobile Pwn2Own.
+  * More information about NFC on Android can be found [here] (http://developer.android.com/guide/topics/connectivity/nfc/index.html).
