@@ -27,6 +27,9 @@ tools
 * static and dynamic analysis
   * [andrubis] (https://anubis.iseclab.org/)
 
+* file system
+  * canhazaxs
+
 abbreviations
 =============
 * [Explanation of Code Names, Tags, and Build Numbers] (http://source.android.com/source/build-numbers.html)
@@ -99,25 +102,25 @@ android attack surfaces
 * Remote attack surfaces (the name comes from the fact that the attacker need not be physically located near her victim).
   * On a live device, the /proc/net directory can be particularly enlightening. More specifically, the ptype entry in that directory provides a list of the protocol types that are supported along with their corresponding receive functions.
 
-```
-root@crespo:/ # cat /proc/net/ptype
-cat /proc/net/ptype
-Type Device      Function
-0800          ip_rcv+0x0/0x33c                // IPV4
-00f5          phonet_rcv+0x0/0x4f0            // PhoNet
-0806          arp_rcv+0x0/0x144               // ARP
-890d wlan0    packet_rcv+0x0/0x3b8            
-86dd          ipv6_rcv+0x0/0x404              // IPV6
-888e wlan0    packet_rcv+0x0/0x3b8
-```
+  ```
+  root@crespo:/ # cat /proc/net/ptype
+  cat /proc/net/ptype
+  Type Device      Function
+  0800          ip_rcv+0x0/0x33c                // IPV4
+  00f5          phonet_rcv+0x0/0x4f0            // PhoNet
+  0806          arp_rcv+0x0/0x144               // ARP
+  890d wlan0    packet_rcv+0x0/0x3b8            
+  86dd          ipv6_rcv+0x0/0x404              // IPV6
+  888e wlan0    packet_rcv+0x0/0x3b8
+  ```
 
   * Enumerating exposed network services can be done in two ways: by using a port scanner such as Nmap or by listing the listening ports of a test device using shell access:
 
-```
-root@crespo:/ # netstat -an | grep LISTEN
-netstat -an | grep LISTEN
- tcp       0      0 127.0.0.1:5037         0.0.0.0:*              LISTEN
-```
+  ```
+  root@crespo:/ # netstat -an | grep LISTEN
+  netstat -an | grep LISTEN
+   tcp       0      0 127.0.0.1:5037         0.0.0.0:*              LISTEN
+  ```
 
   * Mobile devices expose an additional remote attack surface through cellular communications (SMS and MMS). MMS messages can contain rich multimedia content. Other protocols are built on top of SMS (e.g. WAP). WAP supports push messaging and other protocols. One type of request implemented as a WAP Push message is the Service Loading (SL) request. This request allows the subscriber to cause the handset to request a URL, sometimes without any user interaction.
 
@@ -132,8 +135,8 @@ android malware
   * *Bouncer* - Google's QEMU based Android emulator designed to execute apps in order to determine whether they exhibit malicious behavior
               - Attacks on Bouncer: Charlie Miller and Jon Oberheide, Nicholas Percoco ("Adventures in Bouncerland")
 
-android wireless communications
-===============================
+android remote attack surfaces
+==============================
 * Almost all devices support Wi-Fi and Bluetooth. Many of those also support Global Positioning System (GPS). Devices able to make cellular telephone calls support one or more of the standard cell technologies, such as Global System for Mobile communications (GSM) and Code Division Multiple Access (CDMA). Newer Android devices also support Near Field Communication (NFC).
 
 * *GPS* (often referred to as location data in Android)
@@ -176,3 +179,56 @@ android wireless communications
     * Georg Wicherski and Joshua J. Drake - used NFC to launch a successful browser attack at BlackHat USA in 2012.
     * MWR Labs - exploited a file format parsing vulnerability in the Polaris Office document suite at the 2012 Mobile Pwn2Own.
   * More information about NFC on Android can be found [here] (http://developer.android.com/guide/topics/connectivity/nfc/index.html).
+
+android local attack surfaces
+=============================
+* In this section, we'll take a closer look at the various attack surfaces exposed to code that’s already executing on a device, whether it be an Android app, a shell via ADB, or otherwise.
+
+* *The file system*
+  * You can enumerate file system entries easily using the *opendir* and *stat* system calls. However, some directories do not allow lesser privileged users to list their contents (those lacking the read bit).
+  * To make it easier to determine file system entries that could be interesting, Joshua J. Drake developed a tool called *canhazaxs*.
+
+* *System Calls*
+  * The Linux kernel also processes potentially malicious data when it executes system calls. As such, system call handler functions inside the kernel represent an interesting attack surface.
+  * Finding such functions is easily accomplished by searching for the SYSCALL_DEFINE string within the kernel source code.
+
+* *Sockets* (created using the socket system call)
+  * socket system call's function prototype:
+
+    ```
+    int socket(int domain, int type, int protocol);
+    ```
+
+    * The domain parameter is most important as its value determines how the  protocol parameter is interpreted.
+  * It's possible to determine which protocols are supported by an Android device by inspecting the /proc/net/protocols.
+  * The source code that implements each protocol can be found within the Linux kernel source in the net subdirectory.
+  * Most Android devices make extensive use of sockets in the PF_UNIX, PF_INET and PF_NETLINK domains. Detailed information about the status of instances of each type of socket can be obtained via entries in the /proc/net directory
+  * The first, and most commonly used, socket domain is the PF_UNIX domain. Many services expose IPC functionality via sockets in this domain, which expose endpoints in the file system that can be secured using traditional user, group, and permissions.
+  * In addition to traditional PF_UNIX domain sockets, Android implements a special type of socket called an Abstract Namespace Socket. Several core system services use sockets in this domain to expose IPC functionality. 
+  * Any application that wants to talk to hosts on the Internet uses PF_INET sockets. On rare occasions, services and apps use PF_INET sockets to facilitate IPC.
+  * The final common type of socket in Android is the PF_NETLINK socket. These types of sockets are usually used to communicate between kernel-space and user-space.
+  * On typical Linux systems, you can match processes to sockets using the *lsof* command or the  netstat command with the -p option. Unfortunately, this doesn’t work out of the box on Android devices. Using a properly built BusyBox binary on a rooted device may allow you tu achieve this task.
+
+* *Binder* (the basis of Intents that are used to communicate between app-level Android components)
+  * The driver itself is implemented in kernel-space and exposes an attack surface via the /dev/binder character device (then, Dalvik applications communicate with one another through several levels of abstraction built on top).
+
+* *Shared Memory* (Android devices do not use traditional POSIX shared memory but they do contain several shared memory facilities)
+  * Android implements a custom shared memory mechanism called Anonymous Shared Memory, or ashmem for short.
+  * You can find out which processes are communicating using ashmem by looking at the open file descriptors in the /proc file system:
+
+  ```
+  root@crespo:/ # busybox ls -ld /proc/[0-9]*/fd/* | grep /dev/ashmem | busybox awk -F/ ‘{print $3}’ | busybox sort -u
+  * | grep /dev/ashmem | busybox awk -F/ '{print $3}' | busybox sort -u         <
+  [...]
+  17704
+  17921
+  18115
+  18139
+  18218
+  18232
+  ```
+
+  * In addition to ashmem, other shared memory facilities—for example, Google’s pmem, Nvidia’s NvMap, and ION—exist on only a subset of Android devices.
+
+android physical attack surfaces
+================================
