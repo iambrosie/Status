@@ -1,6 +1,6 @@
 # Description
 
-pathaudit is a small python utility which allows one to *hash* (using the SHA-256 cryptographic hash function) a user provided path.
+pathaudit is a small python utility which allows one to *hash*, using the SHA-256 cryptographic hash function, a user provided path (i.e. if the path refers to a valid file, then that file will be hashed; if the path refers to a directory then that directory tree will be recursively traversed and all the files within the tree will be hashed).
 
 If an output file is specified during the hash operation, it may later be used as an input for an *audit* (checking whether the files in the audit file have changed since the audit file creation).
 
