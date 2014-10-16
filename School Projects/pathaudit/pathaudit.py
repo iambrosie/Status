@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-__author__ = 'iambrozie'
+__author__ = 'ambrozie'
 
 
 import argparse
